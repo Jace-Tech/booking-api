@@ -1,4 +1,4 @@
-# BANK API
+# Booking API
 
 ## ROUTES
 
@@ -8,7 +8,7 @@
 
 ```json
 {
-  "message": "Hello From FOO API"
+  "message": "Hello From Booking API"
 }
 ```
 
@@ -18,6 +18,6 @@
 
 ```json
 {
-  "message": "Hello From FOO API"
+  "message": "Hello From Booking API"
 }
 ```
