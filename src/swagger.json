@@ -2,8 +2,8 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "API Name",
-    "description": "API description",
+    "title": "Booking API",
+    "description": "Vehicle booking service API",
     "license": {
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
@@ -13,18 +13,22 @@
   "basePath": "/",
   "tags": [
     {
-      "name": "foo",
-      "description": "Foo summary"
+      "name": "Auth",
+      "description": "For handling authentication endpoints"
     },
     {
-      "name": "bar",
-      "description": "Bar summary"
+      "name": "User",
+      "description": "For handling user endpoints"
+    },
+    {
+      "name": "Terminal",
+      "description": "For handling terminal endpoints"
     }
   ],
   "paths": {
-    "path/foo/bar": {
+    "/auth/signup/admin": {
       "post": {
-        "tags": ["foo", "bar"],
+        "tags": ["Auth"],
         "parameters": [
           {
             "name": "required params",
@@ -33,7 +37,158 @@
             "schema": {
               "type": "object",
               "properties": {
-                "foo1": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "summary": "Creates an admin account",
+        "responses": {
+          "200": {
+            "message": "Account created!",
+            "data": {
+              "email": "h1@gmail.com",
+              "name": "Jace Tech",
+              "role": "admin",
+              "_id": "6416ffbb00f07f4e260e30af",
+              "createdAt": "2023-03-19T12:27:39.344Z",
+              "updatedAt": "2023-03-19T12:27:39.344Z"
+            },
+            "success": true
+          },
+          "400": {
+            "message": "User already exists",
+            "data": null,
+            "success": false
+          }
+        }
+      }
+    },
+    "/auth/signin": {  
+      "post": {
+        "tags": ["Auth"],
+        "parameters": [
+          {
+            "name": "required params",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "summary": "Signs users in",
+        "responses": {
+          "200": {
+            "message": "Log in success",
+            "data": {
+              "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJ1c2VySWQiOiI2NDE2ZmQyM2VmMzhkZmE0MDU5YjBhNDIiLCJpYXQiOjE2NzkyMjg0MDMsImV4cCI6MTY3OTgzMzIwM30.EbQrRCKuTwMvcxh_n4JkLtspg0RdcTWJPAC3tbnyg9E",
+              "user": {
+                "_id": "6416fd23ef38dfa4059b0a42",
+                "email": "alexjace151@gmail.com",
+                "name": "Jace Tech",
+                "role": "admin",
+                "createdAt": "2023-03-19T12:16:35.968Z",
+                "updatedAt": "2023-03-19T12:16:35.968Z"
+              }
+            },
+            "success": true
+          }
+        }
+      }
+    },
+    "/user/": {  
+      "get": {
+        "tags": ["User"],
+        "parameters": null,
+        "summary": "Lists all the users",
+        "responses": {
+          "200": {
+            "message": "All users",
+            "data": [
+              {
+                "_id": "6416fd23ef38dfa4059b0a42",
+                "email": "alexjace151@gmail.com",
+                "name": "Jace Tech",
+                "role": "admin",
+                "createdAt": "2023-03-19T12:16:35.968Z",
+                "updatedAt": "2023-03-19T12:16:35.968Z"
+              }
+            ],
+            "success": true
+          }
+        }
+      }
+    },
+    "/user/:id/delete": {  
+      "delete": {
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "required params",
+            "in": "params",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "summary": "Deletes an return user details",
+        "responses": {
+          "200": {
+            "message": "User deleted!",
+            "data": {
+              "_id": "6416ffbb00f07f4e260e30af",
+              "email": "h1@gmail.com",
+              "name": "Jace Tech",
+              "role": "admin",
+              "createdAt": "2023-03-19T12:27:39.344Z",
+              "updatedAt": "2023-03-19T12:27:39.344Z"
+            },
+            "success": true
+          }
+        }
+      }
+    },
+    "/terminal/": {  
+      "post": {
+        "tags": ["Terminal"],
+        "parameters": [
+          {
+            "name": "required params",
+            "in": "params",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "string"
+                },
+                "state": {
                   "type": "string"
                 }
               }
@@ -41,22 +196,498 @@
           },
           {
             "name": "optional params",
-            "in": "body",
+            "in": "params",
             "required": false,
             "schema": {
               "type": "object",
               "properties": {
-                "bar": {
+                "phone": {
                   "type": "string"
                 }
               }
             }
           }
         ],
-        "summary": "Api summary",
+        "summary": "Creates a new terminal",
         "responses": {
           "200": {
-            
+            "message": "Terminal created!",
+            "data": {
+              "name": "Enugu East Terminal",
+              "address": "Off sacred heart, ziks avenue",
+              "phone": null,
+              "state": "Enugu State",
+              "_id": "64170849591a8fda4833b960",
+              "createdAt": "2023-03-19T13:04:09.292Z",
+              "updatedAt": "2023-03-19T13:04:09.292Z",
+              "__v": 0
+            },
+            "success": true
+          }
+        }
+      }
+    },
+    "terminal/": {  
+      "get": {
+        "tags": ["Terminal"],
+        "parameters": [],
+        "summary": "Lists all the terminals",
+        "responses": {
+          "200": {
+            "message": "All Terminals",
+            "data": [
+              {
+                "_id": "64170849591a8fda4833b960",
+                "name": "Enugu East Terminal",
+                "address": "Off sacred heart, ziks avenue",
+                "phone": null,
+                "state": "Enugu State",
+                "createdAt": "2023-03-19T13:04:09.292Z",
+                "updatedAt": "2023-03-19T13:04:09.292Z"
+              }
+            ],
+            "success": true
+          }
+        }
+      }
+    },
+    "route/": {  
+      "post": {
+        "tags": ["Terminal"],
+        "parameters": [
+          {
+            "name": "required params",
+            "in": "params",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "type": "string",
+                  "description": "The ObjectId of the terminal"
+                },
+                "to": {
+                  "type": "string",
+                  "description": "The ObjectId of the terminal"
+                },
+                "acPrice": {
+                  "type": "number"
+                },
+                "nonAcPrice": {
+                  "type": "number"
+                },
+                "type": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "summary": "Creates a new route",
+        "responses": {
+          "200": {
+            "message": "Route created!",
+            "data": {
+              "type": "Highway",
+              "from": "64170849591a8fda4833b960",
+              "to": "6417111dba40b2282820fe5a",
+              "acPrice": 2000,
+              "nonAcPrice": 1500,
+              "buses": [],
+              "_id": "641711d0ba40b2282820fe66",
+              "createdAt": "2023-03-19T13:44:48.829Z",
+              "updatedAt": "2023-03-19T13:44:48.829Z",
+              "__v": 0
+            },
+            "success": true
+          }
+        }
+      }
+    },
+    "route/:id/bus": {  
+      "post": {
+        "tags": ["Terminal"],
+        "parameters": [
+          {
+            "name": "required params",
+            "in": "params",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "seatNumber": {
+                  "type": "number",
+                  "description": "Number of seat to"
+                },
+                "busType": {
+                  "type": "string",
+                  "enum": ["acBus", "nonAcBus"]
+                },
+                "boardingDate": {
+                  "type": "date"
+                },
+                "price": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        ],
+        "summary": "Creates and adds bus for route",
+        "responses": {
+          "200": {
+            "message": "Bus created",
+            "data": {
+              "_id": "641711d0ba40b2282820fe66",
+              "type": "Highway",
+              "from": {
+                "_id": "64170849591a8fda4833b960",
+                "name": "Enugu East Terminal",
+                "address": "Off sacred heart, ziks avenue",
+                "phone": null,
+                "state": "Enugu State",
+                "createdAt": "2023-03-19T13:04:09.292Z",
+                "updatedAt": "2023-03-19T13:04:09.292Z",
+                "__v": 0
+              },
+              "to": {
+                "_id": "6417111dba40b2282820fe5a",
+                "name": "Enugu South Terminal",
+                "address": "Off one day, Uwani",
+                "phone": null,
+                "state": "Enugu State",
+                "createdAt": "2023-03-19T13:41:49.108Z",
+                "updatedAt": "2023-03-19T13:41:49.108Z",
+                "__v": 0
+              },
+              "acPrice": 2000,
+              "nonAcPrice": 1500,
+              "buses": [
+                {
+                  "_id": "641717d9f1950c123dbc4aad",
+                  "name": "Ugama Hiace",
+                  "route": "641711d0ba40b2282820fe66",
+                  "price": 2000,
+                  "availableSeats": 16,
+                  "busType": "acBus",
+                  "boardingDate": "2023-03-25T06:00:00.108Z",
+                  "seats": [
+                    {
+                      "_id": "641717d9f1950c123dbc4aae",
+                      "bus": "641717d9f1950c123dbc4aad",
+                      "isBooked": false,
+                      "seatNo": 1,
+                      "createdAt": "2023-03-19T14:10:33.550Z",
+                      "updatedAt": "2023-03-19T14:10:33.550Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717d9f1950c123dbc4ab0",
+                      "bus": "641717d9f1950c123dbc4aad",
+                      "isBooked": false,
+                      "seatNo": 2,
+                      "createdAt": "2023-03-19T14:10:33.564Z",
+                      "updatedAt": "2023-03-19T14:10:33.564Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717d9f1950c123dbc4ab2",
+                      "bus": "641717d9f1950c123dbc4aad",
+                      "isBooked": false,
+                      "seatNo": 3,
+                      "createdAt": "2023-03-19T14:10:33.569Z",
+                      "updatedAt": "2023-03-19T14:10:33.569Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717d9f1950c123dbc4ab4",
+                      "bus": "641717d9f1950c123dbc4aad",
+                      "isBooked": false,
+                      "seatNo": 4,
+                      "createdAt": "2023-03-19T14:10:33.572Z",
+                      "updatedAt": "2023-03-19T14:10:33.572Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717d9f1950c123dbc4ab6",
+                      "bus": "641717d9f1950c123dbc4aad",
+                      "isBooked": false,
+                      "seatNo": 5,
+                      "createdAt": "2023-03-19T14:10:33.583Z",
+                      "updatedAt": "2023-03-19T14:10:33.583Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717d9f1950c123dbc4ab8",
+                      "bus": "641717d9f1950c123dbc4aad",
+                      "isBooked": false,
+                      "seatNo": 6,
+                      "createdAt": "2023-03-19T14:10:33.586Z",
+                      "updatedAt": "2023-03-19T14:10:33.586Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717d9f1950c123dbc4aba",
+                      "bus": "641717d9f1950c123dbc4aad",
+                      "isBooked": false,
+                      "seatNo": 7,
+                      "createdAt": "2023-03-19T14:10:33.590Z",
+                      "updatedAt": "2023-03-19T14:10:33.590Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717d9f1950c123dbc4abc",
+                      "bus": "641717d9f1950c123dbc4aad",
+                      "isBooked": false,
+                      "seatNo": 8,
+                      "createdAt": "2023-03-19T14:10:33.602Z",
+                      "updatedAt": "2023-03-19T14:10:33.602Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717d9f1950c123dbc4abe",
+                      "bus": "641717d9f1950c123dbc4aad",
+                      "isBooked": false,
+                      "seatNo": 9,
+                      "createdAt": "2023-03-19T14:10:33.605Z",
+                      "updatedAt": "2023-03-19T14:10:33.605Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717d9f1950c123dbc4ac0",
+                      "bus": "641717d9f1950c123dbc4aad",
+                      "isBooked": false,
+                      "seatNo": 10,
+                      "createdAt": "2023-03-19T14:10:33.611Z",
+                      "updatedAt": "2023-03-19T14:10:33.611Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717d9f1950c123dbc4ac2",
+                      "bus": "641717d9f1950c123dbc4aad",
+                      "isBooked": false,
+                      "seatNo": 11,
+                      "createdAt": "2023-03-19T14:10:33.617Z",
+                      "updatedAt": "2023-03-19T14:10:33.617Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717d9f1950c123dbc4ac4",
+                      "bus": "641717d9f1950c123dbc4aad",
+                      "isBooked": false,
+                      "seatNo": 12,
+                      "createdAt": "2023-03-19T14:10:33.620Z",
+                      "updatedAt": "2023-03-19T14:10:33.620Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717d9f1950c123dbc4ac6",
+                      "bus": "641717d9f1950c123dbc4aad",
+                      "isBooked": false,
+                      "seatNo": 13,
+                      "createdAt": "2023-03-19T14:10:33.623Z",
+                      "updatedAt": "2023-03-19T14:10:33.623Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717d9f1950c123dbc4ac8",
+                      "bus": "641717d9f1950c123dbc4aad",
+                      "isBooked": false,
+                      "seatNo": 14,
+                      "createdAt": "2023-03-19T14:10:33.629Z",
+                      "updatedAt": "2023-03-19T14:10:33.629Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717d9f1950c123dbc4aca",
+                      "bus": "641717d9f1950c123dbc4aad",
+                      "isBooked": false,
+                      "seatNo": 15,
+                      "createdAt": "2023-03-19T14:10:33.633Z",
+                      "updatedAt": "2023-03-19T14:10:33.633Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717d9f1950c123dbc4acc",
+                      "bus": "641717d9f1950c123dbc4aad",
+                      "isBooked": false,
+                      "seatNo": 16,
+                      "createdAt": "2023-03-19T14:10:33.636Z",
+                      "updatedAt": "2023-03-19T14:10:33.636Z",
+                      "__v": 0
+                    }
+                  ],
+                  "createdAt": "2023-03-19T14:10:33.643Z",
+                  "updatedAt": "2023-03-19T14:10:33.643Z",
+                  "__v": 0
+                },
+                {
+                  "_id": "641717e0f1950c123dbc4ad4",
+                  "name": "Ugama Hiace",
+                  "route": "641711d0ba40b2282820fe66",
+                  "price": 2000,
+                  "availableSeats": 16,
+                  "busType": "acBus",
+                  "boardingDate": "2023-03-25T06:00:00.108Z",
+                  "seats": [
+                    {
+                      "_id": "641717e0f1950c123dbc4ad5",
+                      "bus": "641717e0f1950c123dbc4ad4",
+                      "isBooked": false,
+                      "seatNo": 1,
+                      "createdAt": "2023-03-19T14:10:40.820Z",
+                      "updatedAt": "2023-03-19T14:10:40.820Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717e0f1950c123dbc4ad7",
+                      "bus": "641717e0f1950c123dbc4ad4",
+                      "isBooked": false,
+                      "seatNo": 2,
+                      "createdAt": "2023-03-19T14:10:40.822Z",
+                      "updatedAt": "2023-03-19T14:10:40.822Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717e0f1950c123dbc4ad9",
+                      "bus": "641717e0f1950c123dbc4ad4",
+                      "isBooked": false,
+                      "seatNo": 3,
+                      "createdAt": "2023-03-19T14:10:40.830Z",
+                      "updatedAt": "2023-03-19T14:10:40.830Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717e0f1950c123dbc4adb",
+                      "bus": "641717e0f1950c123dbc4ad4",
+                      "isBooked": false,
+                      "seatNo": 4,
+                      "createdAt": "2023-03-19T14:10:40.836Z",
+                      "updatedAt": "2023-03-19T14:10:40.836Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717e0f1950c123dbc4add",
+                      "bus": "641717e0f1950c123dbc4ad4",
+                      "isBooked": false,
+                      "seatNo": 5,
+                      "createdAt": "2023-03-19T14:10:40.838Z",
+                      "updatedAt": "2023-03-19T14:10:40.838Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717e0f1950c123dbc4adf",
+                      "bus": "641717e0f1950c123dbc4ad4",
+                      "isBooked": false,
+                      "seatNo": 6,
+                      "createdAt": "2023-03-19T14:10:40.843Z",
+                      "updatedAt": "2023-03-19T14:10:40.843Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717e0f1950c123dbc4ae1",
+                      "bus": "641717e0f1950c123dbc4ad4",
+                      "isBooked": false,
+                      "seatNo": 7,
+                      "createdAt": "2023-03-19T14:10:40.935Z",
+                      "updatedAt": "2023-03-19T14:10:40.935Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717e0f1950c123dbc4ae3",
+                      "bus": "641717e0f1950c123dbc4ad4",
+                      "isBooked": false,
+                      "seatNo": 8,
+                      "createdAt": "2023-03-19T14:10:40.939Z",
+                      "updatedAt": "2023-03-19T14:10:40.939Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717e0f1950c123dbc4ae5",
+                      "bus": "641717e0f1950c123dbc4ad4",
+                      "isBooked": false,
+                      "seatNo": 9,
+                      "createdAt": "2023-03-19T14:10:40.968Z",
+                      "updatedAt": "2023-03-19T14:10:40.968Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717e0f1950c123dbc4ae7",
+                      "bus": "641717e0f1950c123dbc4ad4",
+                      "isBooked": false,
+                      "seatNo": 10,
+                      "createdAt": "2023-03-19T14:10:40.971Z",
+                      "updatedAt": "2023-03-19T14:10:40.971Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717e0f1950c123dbc4ae9",
+                      "bus": "641717e0f1950c123dbc4ad4",
+                      "isBooked": false,
+                      "seatNo": 11,
+                      "createdAt": "2023-03-19T14:10:40.973Z",
+                      "updatedAt": "2023-03-19T14:10:40.973Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717e0f1950c123dbc4aeb",
+                      "bus": "641717e0f1950c123dbc4ad4",
+                      "isBooked": false,
+                      "seatNo": 12,
+                      "createdAt": "2023-03-19T14:10:40.976Z",
+                      "updatedAt": "2023-03-19T14:10:40.976Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717e0f1950c123dbc4aed",
+                      "bus": "641717e0f1950c123dbc4ad4",
+                      "isBooked": false,
+                      "seatNo": 13,
+                      "createdAt": "2023-03-19T14:10:40.984Z",
+                      "updatedAt": "2023-03-19T14:10:40.984Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717e0f1950c123dbc4aef",
+                      "bus": "641717e0f1950c123dbc4ad4",
+                      "isBooked": false,
+                      "seatNo": 14,
+                      "createdAt": "2023-03-19T14:10:40.987Z",
+                      "updatedAt": "2023-03-19T14:10:40.987Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717e0f1950c123dbc4af1",
+                      "bus": "641717e0f1950c123dbc4ad4",
+                      "isBooked": false,
+                      "seatNo": 15,
+                      "createdAt": "2023-03-19T14:10:40.988Z",
+                      "updatedAt": "2023-03-19T14:10:40.988Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "641717e0f1950c123dbc4af3",
+                      "bus": "641717e0f1950c123dbc4ad4",
+                      "isBooked": false,
+                      "seatNo": 16,
+                      "createdAt": "2023-03-19T14:10:40.990Z",
+                      "updatedAt": "2023-03-19T14:10:40.990Z",
+                      "__v": 0
+                    }
+                  ],
+                  "createdAt": "2023-03-19T14:10:40.993Z",
+                  "updatedAt": "2023-03-19T14:10:40.993Z",
+                  "__v": 0
+                }
+              ],
+              "createdAt": "2023-03-19T13:44:48.829Z",
+              "updatedAt": "2023-03-19T14:10:41.001Z",
+              "__v": 0
+            },
+            "success": true
           }
         }
       }

@@ -33,6 +33,7 @@ interface IRoute {
 
 interface IBus {
   name: string;
+  busType?: string;
   route: mongoose.Schema.Types.ObjectId;
   boardingDate:  mongoose.Schema.Types.Date;
   availableSeats: number;

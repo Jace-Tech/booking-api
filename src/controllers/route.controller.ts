@@ -12,12 +12,14 @@ export const handleCreateRoute = async (req: Request<{}, {}, IRoute>, res: Respo
   if(!req.body.acPrice) throw new BadRequestError("AC bus price is required");
   if(!req.body.type) throw new BadRequestError("Route type is required");
   if(!req.body.nonAcPrice) throw new BadRequestError("Non-AC bus price is required");
+
+  if(req.body.from === req.body.to) throw new BadRequestError("Can't have same from and to parameters");
   
   const route = await routesModel.create(req.body)
   res.status(201).send(response("Route created!", route))
 }
 
-export const createRouteBus = async (req: Request<{id: string}, {}, IBus & { seatNumber: number}>, res: Response) => {
+export const handleCreateRouteBus = async (req: Request<{id: string}, {}, IBus & { seatNumber: number}>, res: Response) => {
   if(!req.params.id) throw new BadRequestError("Route id is required")
   if(!req.body.name) throw new BadRequestError("Bus name is required")
   if(!req.body.price) throw new BadRequestError("Price is required")
@@ -40,13 +42,14 @@ export const createRouteBus = async (req: Request<{id: string}, {}, IBus & { sea
 
   // Update the bus object
   bus.seats = seats as any[]
+  await bus.save()
 
   // Update the route obj
   const route = await routesModel.findByIdAndUpdate(req.params.id, { $push: { buses: bus._id } }).populate(["from", "to", {
     path: "buses",
     model: "bus",
     populate: {
-      path: "buses.seats",
+      path: "seats",
       model: "seat"
     }
   }])

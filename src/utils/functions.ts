@@ -27,7 +27,7 @@ export const getTime = (num: number, format: string): number => {
   return num * SECOND
 }
 
-export const execept = (obj: any, ...props: string[]) => {
+export const except = (obj: any, ...props: string[]) => {
   props.forEach(prop => {
     if(prop in obj) delete obj[prop]
   }) 

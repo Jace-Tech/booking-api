@@ -13,6 +13,11 @@ const busSchema = new mongoose.Schema<IBus>({
     type: Number,
     default: 16
   },
+  busType: {
+    type: String,
+    enum: ['acBus', 'nonAcBus'],
+    default: 'nonAcBus'
+  },
   boardingDate: {
     type: mongoose.Schema.Types.Date,
     required: true

@@ -10,6 +10,7 @@ const UserModel = new mongoose.Schema<IUser>({
   password: String,
   name: String,
   role: {
+    type: String,
     enum: ["admin", "user"],
     default: "user"
   }

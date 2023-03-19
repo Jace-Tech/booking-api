@@ -6,7 +6,7 @@ const authRoutes = Router()
 
 
 // Routes Here
-authRoutes.post("/signup", handleAdminSignup)
+authRoutes.post("/signup/admin", handleAdminSignup)
 authRoutes.post("/signin", handleLogin)
 
 

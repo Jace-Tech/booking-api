@@ -1,9 +1,7 @@
 export default {
   roles: {
     ADMIN: ['admin'],
-    MANAGER: ['admin', 'manager'],
-    STAFF: ['admin', 'manager', 'staff'],
-    STUDENT: ['admin', 'manager', 'staff', 'student']
+    USER: ['admin', 'user'],
   },
   mail: {
     host: "smtp.gmail.com",

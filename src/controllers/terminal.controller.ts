@@ -12,3 +12,8 @@ export const handleCreateTerminal = async (req: Request<{}, {}, ITerminal>, res:
   const terminal = await terminalModel.create(req.body)
   res.status(201).send(response("Terminal created!", terminal));
 }
+
+export const handleListTerminal = async (req: Request, res: Response) => {	 
+  const terminals = await terminalModel.find({}, { __v: 0})
+  res.status(200).send(response("All Terminals", terminals))
+}
