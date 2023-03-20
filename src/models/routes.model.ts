@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { IRoute } from '../@types/models';
+import busModel from './bus.model';
 
 
 const routeSchema = new mongoose.Schema<IRoute>({
@@ -25,5 +26,14 @@ const routeSchema = new mongoose.Schema<IRoute>({
     default: []
   }
 }, { timestamps: true });
+
+routeSchema.post("findOneAndDelete", async (doc) => {
+  // Delete buses
+  const buses = doc.buses
+  if(!buses || !buses.length) return;
+  for(let i = 0; i < buses.length; i++) {
+    await busModel.findByIdAndDelete(buses[i])
+  }
+})
 
 export default mongoose.model('route', routeSchema)

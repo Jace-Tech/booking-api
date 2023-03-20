@@ -13,6 +13,13 @@ export const handleCreateTerminal = async (req: Request<{}, {}, ITerminal>, res:
   res.status(201).send(response("Terminal created!", terminal));
 }
 
+export const handleDeleteTerminal = async (req: Request<{id: string}>, res: Response) => {	
+  if(!req.params.id) throw new BadRequestError("The route id is required")
+  const terminal = await terminalModel.findOneAndDelete(req.params.id as any)
+
+  res.status(200).send(response("Terminal deleted", terminal))
+}
+
 export const handleListTerminal = async (req: Request, res: Response) => {	 
   const terminals = await terminalModel.find({}, { __v: 0})
   res.status(200).send(response("All Terminals", terminals))

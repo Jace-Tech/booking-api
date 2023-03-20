@@ -1,6 +1,6 @@
 import { authMiddleware } from './../middlewares/auth.middleware';
 import { Router } from 'express';
-import { handleCreateTerminal, handleListTerminal } from '../controllers/terminal.controller';
+import { handleCreateTerminal, handleDeleteTerminal, handleListTerminal } from '../controllers/terminal.controller';
 import configs from '../configs';
 const { roles } = configs;
 
@@ -14,6 +14,9 @@ terminalRoutes.post("/",  authMiddleware(roles.USER) as any, handleCreateTermina
 
 // List Al Terminal Route
 terminalRoutes.get("/", authMiddleware(roles.USER) as any, handleListTerminal)
+
+// Delete Terminal Route
+terminalRoutes.delete("/:id", authMiddleware(roles.ADMIN) as any, handleDeleteTerminal)
 
 
 

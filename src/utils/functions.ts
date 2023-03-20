@@ -9,6 +9,17 @@ export const generateDate = (len: number = 3) => {
   return Date.parse(`${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear() + len}`)
 }
 
+export const generateId = (len = 8) => {
+  const letters = "abcdefghijklmnopqrstuvwxyz0123456789"
+  let ID = ""
+  for(let i = 0; i < len; i++) {
+    ID += letters.charAt(Math.floor(Math.random() * letters.length))
+  }
+
+  return ID.toUpperCase()
+}
+
+
 const getPercentage = (amount: number, percent: number): number => (amount * percent) / 100
 
 export const logger = (...message: unknown[]) => SHOW_MESSAGE && console.log(...message)

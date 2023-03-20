@@ -23,6 +23,14 @@
     {
       "name": "Terminal",
       "description": "For handling terminal endpoints"
+    },
+    {
+      "name": "Route",
+      "description": "For handling route endpoints"
+    },
+    {
+      "name": "Booking",
+      "description": "For handling terminal endpoints"
     }
   ],
   "paths": {
@@ -177,7 +185,7 @@
         "parameters": [
           {
             "name": "required params",
-            "in": "params",
+            "in": "body",
             "required": true,
             "schema": {
               "type": "object",
@@ -196,7 +204,7 @@
           },
           {
             "name": "optional params",
-            "in": "params",
+            "in": "body",
             "required": false,
             "schema": {
               "type": "object",
@@ -253,11 +261,11 @@
     },
     "route/": {  
       "post": {
-        "tags": ["Terminal"],
+        "tags": ["Route"],
         "parameters": [
           {
             "name": "required params",
-            "in": "params",
+            "in": "body",
             "required": true,
             "schema": {
               "type": "object",
@@ -298,6 +306,292 @@
               "createdAt": "2023-03-19T13:44:48.829Z",
               "updatedAt": "2023-03-19T13:44:48.829Z",
               "__v": 0
+            },
+            "success": true
+          }
+        }
+      }
+    },
+    "/route/": {  
+      "post": {
+        "tags": ["Route"],
+        "parameters": [],
+        "summary": "Gets all routes",
+        "responses": {
+          "200": {
+            "message": "All routes",
+            "data": [
+              {
+                "_id": "6418964260dc690be0461782",
+                "type": "Highway",
+                "from": null,
+                "to": null,
+                "acPrice": 2000,
+                "nonAcPrice": 1500,
+                "buses": [
+                  {
+                    "_id": "6418967c60dc690be0461788",
+                    "name": "Ugama Hiace",
+                    "route": "6418964260dc690be0461782",
+                    "price": 2000,
+                    "availableSeats": 16,
+                    "busType": "acBus",
+                    "boardingDate": "2023-03-25T06:00:00.108Z",
+                    "seats": [
+                      {
+                        "_id": "6418967c60dc690be0461789",
+                        "bus": "6418967c60dc690be0461788",
+                        "isBooked": false,
+                        "seatNo": 1,
+                        "createdAt": "2023-03-20T17:23:08.607Z",
+                        "updatedAt": "2023-03-20T17:23:08.607Z",
+                        "__v": 0
+                      },
+                      {
+                        "_id": "6418967c60dc690be046178b",
+                        "bus": "6418967c60dc690be0461788",
+                        "isBooked": false,
+                        "seatNo": 2,
+                        "createdAt": "2023-03-20T17:23:08.653Z",
+                        "updatedAt": "2023-03-20T17:23:08.653Z",
+                        "__v": 0
+                      },
+                      {
+                        "_id": "6418967c60dc690be046178d",
+                        "bus": "6418967c60dc690be0461788",
+                        "isBooked": false,
+                        "seatNo": 3,
+                        "createdAt": "2023-03-20T17:23:08.656Z",
+                        "updatedAt": "2023-03-20T17:23:08.656Z",
+                        "__v": 0
+                      },
+                      {
+                        "_id": "6418967c60dc690be046178f",
+                        "bus": "6418967c60dc690be0461788",
+                        "isBooked": false,
+                        "seatNo": 4,
+                        "createdAt": "2023-03-20T17:23:08.659Z",
+                        "updatedAt": "2023-03-20T17:23:08.659Z",
+                        "__v": 0
+                      },
+                      {
+                        "_id": "6418967c60dc690be0461791",
+                        "bus": "6418967c60dc690be0461788",
+                        "isBooked": false,
+                        "seatNo": 5,
+                        "createdAt": "2023-03-20T17:23:08.662Z",
+                        "updatedAt": "2023-03-20T17:23:08.662Z",
+                        "__v": 0
+                      },
+                      {
+                        "_id": "6418967c60dc690be0461793",
+                        "bus": "6418967c60dc690be0461788",
+                        "isBooked": false,
+                        "seatNo": 6,
+                        "createdAt": "2023-03-20T17:23:08.666Z",
+                        "updatedAt": "2023-03-20T17:23:08.666Z",
+                        "__v": 0
+                      },
+                      {
+                        "_id": "6418967c60dc690be0461795",
+                        "bus": "6418967c60dc690be0461788",
+                        "isBooked": false,
+                        "seatNo": 7,
+                        "createdAt": "2023-03-20T17:23:08.670Z",
+                        "updatedAt": "2023-03-20T17:23:08.670Z",
+                        "__v": 0
+                      },
+                      {
+                        "_id": "6418967c60dc690be0461797",
+                        "bus": "6418967c60dc690be0461788",
+                        "isBooked": false,
+                        "seatNo": 8,
+                        "createdAt": "2023-03-20T17:23:08.673Z",
+                        "updatedAt": "2023-03-20T17:23:08.673Z",
+                        "__v": 0
+                      },
+                      {
+                        "_id": "6418967c60dc690be0461799",
+                        "bus": "6418967c60dc690be0461788",
+                        "isBooked": false,
+                        "seatNo": 9,
+                        "createdAt": "2023-03-20T17:23:08.677Z",
+                        "updatedAt": "2023-03-20T17:23:08.677Z",
+                        "__v": 0
+                      },
+                      {
+                        "_id": "6418967c60dc690be046179b",
+                        "bus": "6418967c60dc690be0461788",
+                        "isBooked": false,
+                        "seatNo": 10,
+                        "createdAt": "2023-03-20T17:23:08.681Z",
+                        "updatedAt": "2023-03-20T17:23:08.681Z",
+                        "__v": 0
+                      },
+                      {
+                        "_id": "6418967c60dc690be046179d",
+                        "bus": "6418967c60dc690be0461788",
+                        "isBooked": false,
+                        "seatNo": 11,
+                        "createdAt": "2023-03-20T17:23:08.686Z",
+                        "updatedAt": "2023-03-20T17:23:08.686Z",
+                        "__v": 0
+                      },
+                      {
+                        "_id": "6418967c60dc690be046179f",
+                        "bus": "6418967c60dc690be0461788",
+                        "isBooked": false,
+                        "seatNo": 12,
+                        "createdAt": "2023-03-20T17:23:08.692Z",
+                        "updatedAt": "2023-03-20T17:23:08.692Z",
+                        "__v": 0
+                      },
+                      {
+                        "_id": "6418967c60dc690be04617a1",
+                        "bus": "6418967c60dc690be0461788",
+                        "isBooked": false,
+                        "seatNo": 13,
+                        "createdAt": "2023-03-20T17:23:08.694Z",
+                        "updatedAt": "2023-03-20T17:23:08.694Z",
+                        "__v": 0
+                      },
+                      {
+                        "_id": "6418967c60dc690be04617a3",
+                        "bus": "6418967c60dc690be0461788",
+                        "isBooked": false,
+                        "seatNo": 14,
+                        "createdAt": "2023-03-20T17:23:08.697Z",
+                        "updatedAt": "2023-03-20T17:23:08.697Z",
+                        "__v": 0
+                      },
+                      {
+                        "_id": "6418967c60dc690be04617a5",
+                        "bus": "6418967c60dc690be0461788",
+                        "isBooked": false,
+                        "seatNo": 15,
+                        "createdAt": "2023-03-20T17:23:08.700Z",
+                        "updatedAt": "2023-03-20T17:23:08.700Z",
+                        "__v": 0
+                      },
+                      {
+                        "_id": "6418967c60dc690be04617a7",
+                        "bus": "6418967c60dc690be0461788",
+                        "isBooked": false,
+                        "seatNo": 16,
+                        "createdAt": "2023-03-20T17:23:08.704Z",
+                        "updatedAt": "2023-03-20T17:23:08.704Z",
+                        "__v": 0
+                      }
+                    ],
+                    "createdAt": "2023-03-20T17:23:08.711Z",
+                    "updatedAt": "2023-03-20T17:23:08.711Z",
+                    "__v": 0
+                  }
+                ],
+                "createdAt": "2023-03-20T17:22:10.592Z",
+                "updatedAt": "2023-03-20T17:23:09.112Z",
+                "__v": 0
+              }
+            ],
+            "success": true
+          }
+        }
+      }
+    },
+    "booking/": {  
+      "post": {
+        "tags": ["Booking"],
+        "parameters": [
+          {
+            "name": "required params",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "route": {
+                  "type": "string",
+                  "description": "The ObjectId of the route"
+                },
+                "bus": {
+                  "type": "string",
+                  "description": "The ObjectId of the bus"
+                },
+                "seat": {
+                  "type": "array"
+                },
+                "tickets": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        ],
+        "summary": "Creates a new booking",
+        "responses": {
+          "200": {
+            "message": "Route Booked!",
+            "data": {
+              "ticketId": "U0D82T6B",
+              "booking": {
+                "route": "641711d0ba40b2282820fe66",
+                "bus": "641717e0f1950c123dbc4ad4",
+                "seat": [
+                  "641717e0f1950c123dbc4ad5",
+                  "641717e0f1950c123dbc4ad7"
+                ],
+                "tickets": 2,
+                "ticketId": "U0D82T6B",
+                "_id": "64188f50388e12ac14516d86",
+                "createdAt": "2023-03-20T16:52:32.157Z",
+                "updatedAt": "2023-03-20T16:52:32.157Z",
+                "__v": 0
+              }
+            },
+            "success": true
+          }
+        }
+      }
+    },
+    "booking/:id": {  
+      "get": {
+        "tags": ["Booking"],
+        "parameters": [
+          {
+            "name": "required params",
+            "in": "params",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "The Ticket of the route"
+                }
+              }
+            }
+          }
+        ],
+        "summary": "Creates a new booking",
+        "responses": {
+          "200": {
+            "message": "Route Booked!",
+            "data": {
+              "ticketId": "U0D82T6B",
+              "booking": {
+                "route": "641711d0ba40b2282820fe66",
+                "bus": "641717e0f1950c123dbc4ad4",
+                "seat": [
+                  "641717e0f1950c123dbc4ad5",
+                  "641717e0f1950c123dbc4ad7"
+                ],
+                "tickets": 2,
+                "ticketId": "U0D82T6B",
+                "_id": "64188f50388e12ac14516d86",
+                "createdAt": "2023-03-20T16:52:32.157Z",
+                "updatedAt": "2023-03-20T16:52:32.157Z",
+                "__v": 0
+              }
             },
             "success": true
           }

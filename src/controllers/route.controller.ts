@@ -1,10 +1,11 @@
 import { response } from './../utils/response';
-import { BadRequestError } from './../utils/customError';
+import { BadRequestError, NotFoundError } from './../utils/customError';
 import { Request, Response } from 'express';
 import { IBus, IRoute } from '../@types/models';
 import routesModel from '../models/routes.model';
 import busModel from '../models/bus.model';
 import seatModel from '../models/seat.model';
+import mongoose from 'mongoose';
 
 export const handleCreateRoute = async (req: Request<{}, {}, IRoute>, res: Response) => {	
   if(!req.body.from) throw new BadRequestError("From location is required");
@@ -55,4 +56,27 @@ export const handleCreateRouteBus = async (req: Request<{id: string}, {}, IBus &
   }])
 
   res.status(201).send(response("Bus created", route))
+}
+
+export const handleListRoutes = async (req: Request, res: Response) => {	
+  const routes =  await routesModel.find({}).populate(["from", "to", {
+    path: "buses",
+    model: "bus",
+    populate: {
+      path: "seats",
+      model: "seat"
+    }
+  }])
+
+  res.status(200).send(response("All routes", routes))
+}
+
+export const handleDeleteRoute = async (req: Request<{id: mongoose.Schema.Types.ObjectId}>, res: Response) => {	 
+  if(!req.params.id) throw new BadRequestError("Route Id is required")
+
+  const route = await routesModel.findOne({_id: req.params.id})
+  if(!route) throw new NotFoundError("Route not found")
+
+  await route.delete()
+  res.status(200).send(response("Route deleted!", route))
 }

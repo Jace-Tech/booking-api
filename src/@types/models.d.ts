@@ -46,3 +46,11 @@ interface ISeat {
   isBooked: boolean;
   bus: mongoose.Schema.Types.ObjectId
 }
+
+interface IBooking {
+  route: mongoose.Schema.Types.ObjectId;
+  bus: mongoose.Schema.Types.ObjectId;
+  seat: mongoose.Schema.Types.ObjectId[];
+  tickets: number;
+  ticketId: string;
+}

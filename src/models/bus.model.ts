@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { IBus } from '../@types/models';
+import seatModel from './seat.model';
 
 
 const busSchema = new mongoose.Schema<IBus>({
@@ -28,5 +29,14 @@ const busSchema = new mongoose.Schema<IBus>({
   }
 
 }, { timestamps: true });
+
+busSchema.post("findOneAndDelete", async(doc) => {
+  const seats = doc?.seats
+  if(!seats || !seats.length) return;
+
+  for(let i = 0; i < seats.length; i++) {
+    await seatModel.findByIdAndDelete(seats[i])
+  }
+})
 
 export default mongoose.model('bus', busSchema)

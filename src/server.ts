@@ -25,11 +25,11 @@ preMiddleware(app);
 
 // Routes
 app.get("/", (req: Request, res: Response) => {
-  res.json({ message: "Hello From API " + process.env.APP_NAME  })
+  res.json({ message: `Hello From ${process.env.APP_NAME} API`  })
 })
 
 app.get("/ping", (req: Request, res: Response) => {
-  res.json({ message: "Hello From API " + process.env.APP_NAME })
+  res.json({ message: `Hello From ${process.env.APP_NAME} API` })
 })
 
 // Main Routes
