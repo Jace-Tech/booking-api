@@ -36,6 +36,9 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "resolutions": {
+    "autoprefixer": "10.4.5"
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
