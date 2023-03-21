@@ -13,7 +13,7 @@ const terminalRoutes = Router()
 terminalRoutes.post("/",  authMiddleware(roles.USER) as any, handleCreateTerminal)
 
 // List Al Terminal Route
-terminalRoutes.get("/", authMiddleware(roles.USER) as any, handleListTerminal)
+terminalRoutes.get("/",  handleListTerminal)
 
 // Delete Terminal Route
 terminalRoutes.delete("/:id", authMiddleware(roles.ADMIN) as any, handleDeleteTerminal)
