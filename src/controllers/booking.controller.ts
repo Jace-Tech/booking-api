@@ -59,3 +59,10 @@ export const handleGetBooking = async (req: Request<{id: string}>, res: Response
 
   res.status(200).send(response("Booking Details", booking))
 }
+
+export const handleGetAllBooking = async (req: Request, res: Response) => {	 
+  const booking = await bookingModel.findOne({}).populate(["route", "bus", "seat"])
+  if(!booking) throw new NotFoundError("Booking not found")
+
+  res.status(200).send(response("All Booking ", booking))
+}
