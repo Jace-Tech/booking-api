@@ -1,15 +1,13 @@
 import React from 'react'
 // react component that copies the given text inside your clipboard
 // reactstrap components
+/* eslint-disable no-unused-vars */
+
 import {
   Button,
   Card,
   CardHeader,
   CardBody,
-  NavItem,
-  NavLink,
-  Nav,
-  Progress,
   Table,
   Container,
   Row,
