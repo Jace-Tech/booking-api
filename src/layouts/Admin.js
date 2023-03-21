@@ -26,7 +26,7 @@ import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import AdminFooter from "components/Footers/AdminFooter.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 
-import routes from "routes.js";
+import {dashRoutes} from "routes.js";
 import { useSelector } from "react-redux";
 
 const Admin = (props) => {
@@ -45,8 +45,8 @@ const Admin = (props) => {
     mainContent.current.scrollTop = 0;
   }, [location]);
 
-  const getRoutes = (routes) => {
-    return routes.map((prop, key) => {
+  const getRoutes = (dashRoutes) => {
+    return dashRoutes.map((prop, key) => {
       if (prop.layout === "/admin") {
         return (
           <Route
@@ -62,12 +62,12 @@ const Admin = (props) => {
   };
 
   const getBrandText = (path) => {
-    for (let i = 0; i < routes.length; i++) {
+    for (let i = 0; i < dashRoutes.length; i++) {
       if (
-        props.location.pathname.indexOf(routes[i].layout + routes[i].path) !==
+        props.location.pathname.indexOf(dashRoutes[i].layout + dashRoutes[i].path) !==
         -1
       ) {
-        return routes[i].name;
+        return dashRoutes[i].name;
       }
     }
     return "Brand";
@@ -77,7 +77,7 @@ const Admin = (props) => {
     <>
       <Sidebar
         {...props}
-        routes={routes}
+        routes={dashRoutes}
         logo={{
           innerLink: "/admin/index",
           imgSrc: require("../assets/img/brand/argon-react.png"),
@@ -90,7 +90,7 @@ const Admin = (props) => {
           brandText={getBrandText(props.location.pathname)}
         />
         <Switch>
-          {getRoutes(routes)}
+          {getRoutes(dashRoutes)}
           <Redirect from="*" to="/admin/index" />
         </Switch>
         <Container fluid>
