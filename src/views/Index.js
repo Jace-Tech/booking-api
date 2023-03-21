@@ -19,7 +19,7 @@ import { useStatsContext } from "contexts/StatsContext";
 import { useHistory } from "react-router-dom";
 
 const Index = (props) => {
-  const { routes } = useStatsContext()
+  const { routes, terminals } = useStatsContext()
   const history = useHistory()
   
   return (
@@ -74,6 +74,71 @@ const Index = (props) => {
 
                             <Button className="" color="danger" size="sm">
                               Delete Route
+                            </Button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <th
+                        colSpan={7}
+                        className={"text-center text-muted"}
+                        scope="row"
+                      >
+                        No Routes Found
+                      </th>
+                    </tr>
+                  )}
+                </tbody>
+              </Table>
+            </Card>
+          </Col>
+
+          <Col className="mb-5 mb-xl-0" xl="12">
+            <Card className="shadow mt-4">
+              <CardHeader className="border-0">
+                <Row className="align-items-center">
+                  <div className="col">
+                    <h3 className="mb-0">All Terminals</h3>
+                  </div>
+                  <div className="col text-right">
+                    <Button
+                      color="primary"
+                      onClick={(e) => history.push("/admin/terminal")}
+                      size="sm"
+                    >
+                      See all
+                    </Button>
+                  </div>
+                </Row>
+              </CardHeader>
+              <Table className="align-items-center table-flush" responsive>
+                <thead className="thead-light">
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {terminals && terminals.length ? (
+                    terminals.slice(0, 5).map((terminal) => (
+                      <tr>
+                        <th>{terminal.name}</th>
+                        <th>{terminal.address}</th>
+                        <th>{terminal.state}</th>
+                        <td>{terminal.phone}</td>
+                        <td>
+                          <div className="d-flex align-items-center">
+                            <Button className="" color="primary" size="sm">
+                              Add Bus
+                            </Button>
+
+                            <Button className="" color="danger" size="sm">
+                              Delete
                             </Button>
                           </div>
                         </td>

@@ -30,27 +30,17 @@ const Terminal = () => {
                 <h3 className="mb-0">Terminal</h3>
               </CardHeader>
               <CardBody>
-                <Row className='gap'>
+                <Row>
                   {/* Add Terminal */}
                   <AddTerminal />
 
-
                   {/* Add Terminal */}
                   <Col className="mb-5 mb-xl-0" xl="12">
-                    <Card className="shadow">
+                    <Card className="shadow mt-4">
                       <CardHeader className="border-0">
                         <Row className="align-items-center">
                           <div className="col">
-                            <h3 className="mb-0">All Routes</h3>
-                          </div>
-                          <div className="col text-right">
-                            <Button
-                              color="primary"
-                              onClick={(e) => e.preventDefault()}
-                              size="sm"
-                            >
-                              See all
-                            </Button>
+                            <h3 className="mb-0">All Terminals</h3>
                           </div>
                         </Row>
                       </CardHeader>

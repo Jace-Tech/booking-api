@@ -18,6 +18,7 @@ import {
 // core components
 import Header from "components/Headers/Header.js";
 import { useStatsContext } from 'contexts/StatsContext';
+import AddRoute from 'partials/AddRoute';
 
 const Route = () => {
   const { routes } = useStatsContext()
@@ -35,22 +36,14 @@ const Route = () => {
               </CardHeader>
               <CardBody>
                 <Row>
+                  <AddRoute />
+
                   <Col className="mb-5 mb-xl-0" xl="12">
                     <Card className="shadow">
                       <CardHeader className="border-0">
                         <Row className="align-items-center">
                           <div className="col">
                             <h3 className="mb-0">All Routes</h3>
-                          </div>
-                          <div className="col text-right">
-                            <Button
-                              color="primary"
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}
-                              size="sm"
-                            >
-                              See all
-                            </Button>
                           </div>
                         </Row>
                       </CardHeader>
