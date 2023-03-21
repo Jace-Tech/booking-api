@@ -21,6 +21,6 @@ export const handleDeleteTerminal = async (req: Request<{id: string}>, res: Resp
 }
 
 export const handleListTerminal = async (req: Request, res: Response) => {	 
-  const terminals = await terminalModel.find({}, { __v: 0})
+  const terminals = await terminalModel.find({}, { __v: 0}).sort({ createdAt: 'desc' }).exec()
   res.status(200).send(response("All Terminals", terminals))
 }

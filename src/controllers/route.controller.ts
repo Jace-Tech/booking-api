@@ -66,7 +66,7 @@ export const handleListRoutes = async (req: Request, res: Response) => {
       path: "seats",
       model: "seat"
     }
-  }])
+  }]).sort({ createdAt: 'desc' }).exec()
 
   res.status(200).send(response("All routes", routes))
 }

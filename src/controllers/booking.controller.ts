@@ -54,14 +54,14 @@ export const handleBooking = async (req: Request<{}, {}, IBooking>, res: Respons
 export const handleGetBooking = async (req: Request<{id: string}>, res: Response) => {	 
   if(!req.params.id) throw new BadRequestError("Ticket ID is required")
 
-  const booking = await bookingModel.findOne({ ticketId: req.params.id }).populate(["route", "bus", "seat"])
+  const booking = await bookingModel.findOne({ ticketId: req.params.id }).populate(["route", "bus", "seat"]).sort({ createdAt: 'desc' }).exec()
   if(!booking) throw new NotFoundError("Booking not found")
 
   res.status(200).send(response("Booking Details", booking))
 }
 
 export const handleGetAllBooking = async (req: Request, res: Response) => {	 
-  const booking = await bookingModel.findOne({}).populate(["route", "bus", "seat"])
+  const booking = await bookingModel.findOne({}).populate(["route", "bus", "seat"]).sort({ createdAt: 'desc' }).exec()
   if(!booking) throw new NotFoundError("Booking not found")
 
   res.status(200).send(response("All Booking ", booking))
