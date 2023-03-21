@@ -15,6 +15,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+/* eslint-disable no-unused-vars */
+
 import React from "react";
 import { useLocation, Route, Switch, Redirect, useHistory } from "react-router-dom";
 // reactstrap components
@@ -26,7 +28,6 @@ import Sidebar from "components/Sidebar/Sidebar.js";
 
 import routes from "routes.js";
 import { useSelector } from "react-redux";
-import { logMessage } from "config/functions";
 
 const Admin = (props) => {
   const mainContent = React.useRef(null);
