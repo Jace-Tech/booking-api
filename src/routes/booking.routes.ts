@@ -1,4 +1,4 @@
-import { handleBooking, handleGetBooking, handleGetAllBooking } from './../controllers/booking.controller';
+import { handleBooking, handleGetBooking, handleGetAllBooking, handleDeleteBooking } from './../controllers/booking.controller';
 import { Router } from 'express';
 
 
@@ -13,6 +13,9 @@ bookingRoutes.get("/", handleGetAllBooking)
 
 // Get Booking
 bookingRoutes.get("/:id", handleGetBooking)
+
+// Get Booking
+bookingRoutes.delete("/:id", handleDeleteBooking)
 
 
 export default bookingRoutes
