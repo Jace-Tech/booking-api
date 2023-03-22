@@ -60,6 +60,9 @@ const StatsContextProvider = ({ children }) => {
       terminals,
       routes,
       bookings,
+      fetchRoutes,
+      fetchTerminal,
+      fetchBuses
     }}> 
       {children} 
     </StatsContext.Provider> 

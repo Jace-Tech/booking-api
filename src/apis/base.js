@@ -12,11 +12,13 @@ export const ROUTE_BUSES_ENDPOINT = BASE_URL + "/bus/:id"
 // ROUTE
 export const ALL_ROUTES_ENDPOINT = BASE_URL + "/route"
 export const CREATE_ROUTE_ENDPOINT = BASE_URL + "/route"
+export const DELETE_ROUTE_ENDPOINT = BASE_URL + "/route/:id"
 export const CREATE_ROUTE_BUS_ENDPOINT = BASE_URL + "/route/:id/bus"
 
-// ROUTE
+// TERMINAL
 export const ALL_TERMINAL_ENDPOINT = BASE_URL + "/terminal"
 export const CREATE_TERMINAL_ENDPOINT = BASE_URL + "/terminal"
+export const DELETE_TERMINAL_ENDPOINT = BASE_URL + "/terminal/:id"
 
 // BOOKING
 export const ALL_BOOKING_ENDPOINT = BASE_URL + "/booking"

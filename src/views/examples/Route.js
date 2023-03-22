@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 // react component that copies the given text inside your clipboard
 // reactstrap components
 /* eslint-disable no-unused-vars */
@@ -17,9 +17,43 @@ import {
 import Header from "components/Headers/Header.js";
 import { useStatsContext } from 'contexts/StatsContext';
 import AddRoute from 'partials/AddRoute';
+import AddBus from 'partials/AddBus';
+import { handleDeleteRoute } from 'apis/route.api';
+import useBoolean from 'hooks/useBoolean';
+import { logMessage } from 'config/functions';
+import { toast } from 'react-toastify';
 
 const Route = () => {
-  const { routes } = useStatsContext()
+  const {open, close, bool} = useBoolean()
+  const [index, setIndex] = useState(null)
+  const { routes, fetchRoutes } = useStatsContext()
+  const [routeId, setRouteId] = useState(null)
+
+  const handleDelete = async (id, _index) => {
+    setIndex(_index)
+    open()
+
+    // MAKE REQUEST
+    const result = await handleDeleteRoute(id);
+
+    logMessage(result)
+    // CHECK FOR ERROR
+    if(result && !result?.success) {
+      toast(result?.message, { type: "error" })
+      close()
+      setIndex(null)
+      return
+    }
+
+    // UPDATE THE STATE
+    fetchRoutes()
+
+    // SHOW MESSAGE 
+    toast(result?.message, { type: "success" })
+    close()
+    setIndex(null)
+  }
+
   return (
     <>
       <Header />
@@ -34,10 +68,17 @@ const Route = () => {
               </CardHeader>
               <CardBody>
                 <Row>
-                  <AddRoute />
+                  {routeId ? (
+                    <AddBus
+                      routeId={routeId}
+                      handleFinish={() => setRouteId(null)}
+                    />
+                  ) : (
+                    <AddRoute />
+                  )}
 
                   <Col className="mb-5 mb-xl-0" xl="12">
-                    <Card className="shadow">
+                    <Card className="shadow mt-4">
                       <CardHeader className="border-0">
                         <Row className="align-items-center">
                           <div className="col">
@@ -60,22 +101,43 @@ const Route = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {routes && routes.length ? (
-                            routes.map((route) => (
+                          {routes && routes?.length ? (
+                            routes?.map((route, _index) => (
                               <tr>
-                                <th>{route.from.name}</th>
-                                <th>{route.to.name}</th>
-                                <td>&#8358; {(+route.acPrice).toLocaleString()}</td>
-                                <td>&#8358; {(+route.nonAcPrice).toLocaleString()}</td>
-                                <td>{route.buses.length}</td>
+                                <th>{route?.from.name}</th>
+                                <th>{route?.to.name}</th>
                                 <td>
-                                  <div className='d-flex align-items-center'>
-                                    <Button className='' color='primary' size='sm'> 
+                                  &#8358; {(+route?.acPrice).toLocaleString()}
+                                </td>
+                                <td>
+                                  &#8358; {(+route?.nonAcPrice).toLocaleString()}
+                                </td>
+                                <td>{route?.buses.length}</td>
+                                <td>
+                                  <div className="d-flex align-items-center">
+                                    <Button
+                                      className=""
+                                      color="primary"
+                                      size="sm"
+                                      onClick={() => {
+                                        setRouteId(route?._id);
+                                        window.scrollTo(0, 0);
+                                      }}
+                                    >
                                       Add Bus
                                     </Button>
 
-                                    <Button className='' color='danger' size='sm'> 
-                                      Delete Route
+                                    <Button
+                                      disabled={bool}
+                                      color="danger"
+                                      size="sm"
+                                      onClick={() =>
+                                        handleDelete(route?._id, _index)
+                                      }
+                                    >
+                                      {bool && index === _index
+                                        ? "Deleting..."
+                                        : "Delete Route"}
                                     </Button>
                                   </div>
                                 </td>

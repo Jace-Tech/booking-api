@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 // react component that copies the given text inside your clipboard
 // reactstrap components
 import {
@@ -14,9 +14,40 @@ import {
 import Header from "components/Headers/Header.js";
 import { useStatsContext } from 'contexts/StatsContext';
 import AddTerminal from 'partials/AddTerminal';
+import useBoolean from 'hooks/useBoolean';
+import { handleDeleteTerminal } from 'apis/terminal.api';
+import { logMessage } from 'config/functions';
+import { toast } from 'react-toastify';
 
 const Terminal = () => {
-  const { terminals } = useStatsContext()
+  const { terminals, fetchTerminal } = useStatsContext()
+  const {open, close, bool} = useBoolean()
+  const [index, setIndex] = useState(null)
+
+  const handleDelete = async (id, _index) => {
+    setIndex(_index)
+    open()
+
+    // MAKE REQUEST
+    const result = await handleDeleteTerminal(id);
+
+    logMessage(result)
+    // CHECK FOR ERROR
+    if(result && !result?.success) {
+      toast(result?.message, { type: "error" })
+      close()
+      setIndex(null)
+      return
+    }
+
+    // UPDATE THE STATE
+    fetchTerminal()
+
+    // SHOW MESSAGE 
+    toast(result?.message, { type: "success" })
+    close()
+    setIndex(null)
+  }
   return (
     <>
       <Header />
@@ -59,28 +90,26 @@ const Terminal = () => {
                         </thead>
                         <tbody>
                           {terminals && terminals.length ? (
-                            terminals.map((terminal) => (
+                            terminals.map((terminal, _index) => (
                               <tr>
                                 <th>{terminal.name}</th>
                                 <th>{terminal.address}</th>
                                 <th>{terminal.state}</th>
-                                <td>{terminal.phone}</td>
+                                <td>{terminal.phone || "None"}</td>
                                 <td>
                                   <div className="d-flex align-items-center">
-                                    <Button
-                                      className=""
-                                      color="primary"
-                                      size="sm"
-                                    >
-                                      Add Bus
-                                    </Button>
 
-                                    <Button
-                                      className=""
+                                  <Button
+                                      disabled={bool}
                                       color="danger"
                                       size="sm"
+                                      onClick={() =>
+                                        handleDelete(terminal._id, _index)
+                                      }
                                     >
-                                      Delete 
+                                      {bool && index === _index
+                                        ? "Deleting..."
+                                        : "Delete Terminal"}
                                     </Button>
                                   </div>
                                 </td>
@@ -93,7 +122,7 @@ const Terminal = () => {
                                 className={"text-center text-muted"}
                                 scope="row"
                               >
-                                No Routes Found
+                                No Terminal Found
                               </th>
                             </tr>
                           )}

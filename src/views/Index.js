@@ -61,11 +61,11 @@ const Index = (props) => {
                   {routes && routes.length ? (
                     routes.slice(0, 5).map((route) => (
                       <tr>
-                        <th>{route.from.name}</th>
-                        <th>{route.to.name}</th>
-                        <td>&#8358; {(+route.acPrice).toLocaleString()}</td>
-                        <td>&#8358; {(+route.nonAcPrice).toLocaleString()}</td>
-                        <td>{route.buses.length}</td>
+                        <th>{route?.from.name}</th>
+                        <th>{route?.to.name}</th>
+                        <td>&#8358; {(+route?.acPrice).toLocaleString()}</td>
+                        <td>&#8358; {(+route?.nonAcPrice).toLocaleString()}</td>
+                        <td>{route?.buses.length}</td>
                         <td>
                           <div className="d-flex align-items-center">
                             <Button className="" color="primary" size="sm">
