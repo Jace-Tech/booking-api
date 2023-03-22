@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 const useBoolean = (state = false) => {
   const [bool, setBool] = useState(state)
