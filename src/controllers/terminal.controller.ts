@@ -15,7 +15,7 @@ export const handleCreateTerminal = async (req: Request<{}, {}, ITerminal>, res:
 
 export const handleDeleteTerminal = async (req: Request<{id: string}>, res: Response) => {	
   if(!req.params.id) throw new BadRequestError("The route id is required")
-  const terminal = await terminalModel.findOneAndDelete({_id: req.params.id})
+  const terminal = await terminalModel.findByIdAndDelete(req.params.id)
 
   res.status(200).send(response("Terminal deleted", terminal))
 }
