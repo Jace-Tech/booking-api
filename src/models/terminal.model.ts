@@ -14,9 +14,9 @@ const terminalSchema = new mongoose.Schema<ITerminal>({
 }, { timestamps: true });
 
 // MIDDLEWARES
-terminalSchema.post("findOneAndDelete", async (doc) => {
-  // Delete from routes
-  await routesModel.findByIdAndDelete(doc._id)
-})
+// terminalSchema.post("findOneAndDelete", async (doc) => {
+//   // Delete from routes
+//   await routesModel.findByIdAndDelete(doc._id)
+// })
 
 export default mongoose.model('terminal', terminalSchema)
