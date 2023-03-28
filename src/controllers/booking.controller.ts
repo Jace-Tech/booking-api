@@ -66,7 +66,7 @@ export const handleDeleteBooking = async (req: Request<{id: string}>, res: Respo
   const booking = await bookingModel.findByIdAndDelete(req.params.id).populate(["route", "bus", "seat"])
   if(!booking) throw new NotFoundError("Booking not found")
 
-  res.status(200).send(response("All Booking ", booking))
+  res.status(200).send(response("Booking Deleted!", booking))
 }
 
 
