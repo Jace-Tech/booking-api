@@ -15,9 +15,17 @@ const bookingSchema = new mongoose.Schema<IBooking>({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: "seat" }],
     default: []
   },
+  price: {
+    type: Number,
+    default: 0
+  },
   tickets: {
     type: Number,
     default: 1
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    default: null
   },
   ticketId: {
     type: String,

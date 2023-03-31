@@ -5,6 +5,10 @@ interface IUser {
   name: string;
   email: string;
   role: string;
+  NOKname: string;
+  phone: string;
+  address: string;
+  NOKphone: string;
 }
 
 interface INotification {
@@ -52,5 +56,7 @@ interface IBooking {
   bus: mongoose.Schema.Types.ObjectId;
   seat: mongoose.Schema.Types.ObjectId[];
   tickets: number;
+  price: number;
   ticketId: string;
+  user: mongoose.Schema.Types.ObjectId | null;
 }

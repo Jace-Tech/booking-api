@@ -45,6 +45,7 @@ export const handleBooking = async (req: Request<{}, {}, IBooking>, res: Respons
   // Create booking
   const booking = await bookingModel.create({
     ...req.body,
+    price: req.body.tickets * bus.price,
     ticketId
   })
 

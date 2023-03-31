@@ -28,6 +28,42 @@ export const handleAdminSignup = async (req: Request<{}, {}, IUser>, res: Respon
   res.status(201).send(response("Account created!", data))
 }
 
+export const handleSignup = async (req: Request, res: Response) => {
+  if(!req.body.email) throw new BadRequestError("Email is required");
+  if(!req.body.name) throw new BadRequestError("name is required");
+  if(!req.body.password) throw new BadRequestError("password is required");
+
+  req.body.password = await bcrypt.hash(req.body.password, 10)
+
+  // Check if password exists
+  const exists = await userModel.findOne({ email: req.body.email })
+  if(exists) throw new BadRequestError("User already exists");
+
+  const admin = await userModel.create({
+    ...req.body,
+  })
+
+  const data = except(admin.toObject(), "password", "__v")
+
+  res.status(201).send(response("Account created!", data))
+}
+
+export const handleRegisterInfo = async (req: Request, res: Response) => {
+  if(!req.body.email) throw new BadRequestError("Email is required");
+  if(!req.body.name) throw new BadRequestError("name is required");
+
+  // Check if password exists
+  const exists = await userModel.findOne({ email: req.body.email })
+  if(exists) throw new BadRequestError("User already exists");
+
+  const admin = await userModel.create({
+    ...req.body,
+  })
+
+  const data = except(admin.toObject(), "password", "__v")
+
+  res.status(201).send(response("Account created!", data))
+}
 
 export const handleLogin = async (req: Request, res: Response) => {	 
   if(!req.body.email) throw new BadRequestError("Email is required");

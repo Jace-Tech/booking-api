@@ -7,6 +7,22 @@ const UserModel = new mongoose.Schema<IUser>({
     unique: true,
     required: true
   },
+  NOKname: {
+    type: String,
+    default: null
+  },
+  NOKphone: {
+    type: String,
+    default: null
+  },
+  phone: {
+    type: String,
+    default: null
+  },
+  address: {
+    type: String,
+    default: null
+  },
   password: String,
   name: String,
   role: {

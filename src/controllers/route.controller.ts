@@ -58,6 +58,23 @@ export const handleCreateRouteBus = async (req: Request<{id: string}, {}, IBus &
   res.status(201).send(response("Bus created", route))
 }
 
+
+export const handleUpdateRoute = async (req: Request<{id: mongoose.Types.ObjectId}>, res: Response) => {	
+  if(!req.params.id) throw new BadRequestError("Route ID is required")
+
+  const route = await routesModel.findOneAndUpdate({ _id: req.params.id}, req.body, { new: true }).populate(["from", "to", {
+    path: "buses",
+    model: "bus",
+    populate: {
+      path: "seats",
+      model: "seat"
+    }
+  }])
+  if(!route) throw new NotFoundError("No route found")
+
+  res.status(200).send(response("Route Updated!", route))
+}
+
 export const handleListRoutes = async (req: Request, res: Response) => {	
   const routes =  await routesModel.find({}).populate(["from", "to", {
     path: "buses",
