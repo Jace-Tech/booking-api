@@ -11,6 +11,15 @@ interface IUser {
   NOKphone: string;
 }
 
+interface IGuest {
+  name: string;
+  email: string;
+  NOKname: string;
+  phone: string;
+  address: string;
+  NOKphone: string;
+}
+
 interface INotification {
   user: mongoose.Schema.Types.ObjectId;
   message: string;
@@ -59,4 +68,8 @@ interface IBooking {
   price: number;
   ticketId: string;
   user: mongoose.Schema.Types.ObjectId | null;
+}
+
+interface IBookingParams extends IBooking  {
+  info: IGuest
 }
