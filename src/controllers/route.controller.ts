@@ -30,6 +30,7 @@ export const handleCreateRouteBus = async (req: Request<{id: string}, {}, IBus &
   // Create bus object
   const bus = new busModel({
     ...req.body, 
+    availableSeats: req.body.seatNumber,
     route: req.params.id
   })
 

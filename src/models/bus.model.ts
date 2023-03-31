@@ -12,7 +12,6 @@ const busSchema = new mongoose.Schema<IBus>({
   price: Number,
   availableSeats: {
     type: Number,
-    default: 16
   },
   busType: {
     type: String,
