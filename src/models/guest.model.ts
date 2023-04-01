@@ -4,7 +4,6 @@ import { IGuest } from "../@types/models";
 const GuestModel = new mongoose.Schema<IGuest>({
   email: {
     type: String,
-    unique: true,
     required: true
   },
   NOKname: {
