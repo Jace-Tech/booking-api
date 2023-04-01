@@ -78,7 +78,7 @@ export const handleBooking = async (req: Request<{}, {}, IBookingParams>, res: R
 export const handleGetBooking = async (req: Request<{id: string}>, res: Response) => {	 
   if(!req.params.id) throw new BadRequestError("Ticket ID is required")
 
-  const booking = await bookingModel.findOne({ ticketId: req.params.id }).populate(["route", "bus", "seat"]).sort({ createdAt: 'desc' }).exec()
+  const booking = await bookingModel.findOne({ ticketId: req.params.id }).populate(["route", "bus", "seat",  "user"]).sort({ createdAt: 'desc' }).exec()
   if(!booking) throw new NotFoundError("Booking not found")
 
   res.status(200).send(response("Booking Details", booking))
@@ -87,7 +87,7 @@ export const handleGetBooking = async (req: Request<{id: string}>, res: Response
 export const handleDeleteBooking = async (req: Request<{id: string}>, res: Response) => {
   if(!req.params.id) throw new BadRequestError("Booking ID is required");
   
-  const booking = await bookingModel.findByIdAndDelete(req.params.id).populate(["route", "bus", "seat"])
+  const booking = await bookingModel.findByIdAndDelete(req.params.id).populate(["route", "bus", "seat", "user"])
   if(!booking) throw new NotFoundError("Booking not found")
 
   res.status(200).send(response("Booking Deleted!", booking))
@@ -95,7 +95,7 @@ export const handleDeleteBooking = async (req: Request<{id: string}>, res: Respo
 
 
 export const handleGetAllBooking = async (req: Request, res: Response) => {	 
-  const booking = await bookingModel.find({}).populate(["route", "bus", "seat"]).sort({ createdAt: 'desc' }).exec()
+  const booking = await bookingModel.find({}).populate(["route", "bus", "seat", "user"]).sort({ createdAt: 'desc' }).exec()
   if(!booking) throw new NotFoundError("Booking not found")
 
   res.status(200).send(response("All Booking ", booking))

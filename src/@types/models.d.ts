@@ -12,7 +12,8 @@ interface IUser {
 }
 
 interface IGuest {
-  name: string;
+  firstname: string;
+  lastname: string;
   email: string;
   NOKname: string;
   phone: string;

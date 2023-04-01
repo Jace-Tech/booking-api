@@ -22,7 +22,8 @@ const GuestModel = new mongoose.Schema<IGuest>({
     type: String,
     default: null
   },
-  name: String
+  firstname: String,
+  lastname: String,
 }, { timestamps: true })
 
 
